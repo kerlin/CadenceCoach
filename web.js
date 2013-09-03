@@ -14,8 +14,17 @@ app.set('port', process.env.PORT || 8080);
 
 // Render homepage (note trailing slash): example.com/
 app.get('/', function(request, response) {
-  var data = fs.readFileSync('index.html').toString();
-  response.send(data);
+  //var data = fs.readFileSync('index.html').toString();
+  //response.send(data);
+  response.render("index", {req: request});
+});
+
+app.get('/about', function(request, response) {
+  response.render("about", {req: request});
+});
+
+app.get('/contact', function(request, response) {
+  response.render("contact", {req: request});
 });
 
 // Render example.com/orders
@@ -26,7 +35,7 @@ app.get('/orders', function(request, response) {
       orders_json.push({id: order.coinbase_id, amount: order.amount, time: order.time});
     });
     // Uses views/orders.ejs
-    response.render("orders", {orders: orders_json});
+    response.render("orders", {req: request, orders: orders_json});
   }).error(function(err) {
     console.log(err);
     response.send("error retrieving orders");
