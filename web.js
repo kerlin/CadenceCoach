@@ -26,6 +26,7 @@ app.get('/', function(request, response) {
     });
     // Uses views/index.ejs
     var pctFunded = parseInt(100 * totalBtc/goalBtc);
+    if (pctFunded < 1) pctFunded = 1;
     var pctRemain = 100 - pctFunded;
     totalBtc = totalBtc.toFixed(3);
     var nowDate = new Date()
