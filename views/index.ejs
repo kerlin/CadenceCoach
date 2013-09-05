@@ -101,7 +101,10 @@
     });
     data += '}';
 
-    var cbUrl = "https://coinbase.com/inline_payments/1726ef5f3a82dd1c03a9b7e9223c2fae?c=";
+    // 0.0499
+    //Ovar cbUrl = "https://coinbase.com/inline_payments/1726ef5f3a82dd1c03a9b7e9223c2fae?c=";
+    // 0.003
+    var cbUrl = "https://coinbase.com/inline_payments/9008bca0b601abb5945e40876dcc02dc?c=";
     cbUrl += encodeURIComponent(data);
     
     $("#cbPayment iframe").attr("src", cbUrl);
