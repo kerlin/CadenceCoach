@@ -27,17 +27,17 @@
                 different in horizontal and vertical layouts, illustrating
                 media queries. -->
                 <div class="linediv-l">
-                <h3>1000</h3> <p>backers</p>
+                <h3><%= backers %></h3> <p>backers</p>
                 </div>
               </div>
               <div class="span4">
                 <div class="linediv-c">
-                  <h3>$6000</h3> <p>of $10,000</p>
+                  <h3><%= amount %></h3> <p>of 50.000 BTC</p>
                 </div>
               </div>
               <div class="span4">
                 <div class="linediv-r">
-                <h3>10</h3> <p>days left</p>
+                <h3><%= daysLeft %></h3> <p>days left</p>
                 </div>
               </div>
             </div>
@@ -47,14 +47,89 @@
             <!-- Bootstrap progress bar -->
             <!-- http://twitter.github.io/bootstrap/components.html#progress -->
             <div class="thermometer progress active">
-              <div class="bar bar-success" style="width: 60%;"></div>
-              <div class="bar bar-warning" style="width: 40%;"></div>
+              <div class="bar bar-success" style="width: <%= pctFunded %>%;"></div>
+              <div class="bar bar-warning" style="width: <%= pctRemain %>%;"></div>
             </div>
           </div>
           </div>
           <div class="row-fluid">
           <div class="span6 offset3 order">
+          <!-- Button to trigger modal -->
+          <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">Become a Backer</a>
+           
+          <!-- Modal -->
+          <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3 id="myModalLabel">Become a Backer</h3>
+            </div>
+            <div class="modal-body">
+<div id="ccUser">
+<p>Enter your name and email address, or just press "Continue"</p>
+<form>
+<div class="form-horizontal">
+<input type="text" name="userName" title="Your Name"> </input><input type="text" name="userEmail" title="Your E-mail"></input>
+<button class="btn btn-primary">Continue</button>
+</div>
+</form>
+<script>
+  $("#ccUser input").focus( function() {
+    var value = $(this).val();
+    if ( value === $(this).attr("title") ) {
+      $(this).val("");
+      $(this).removeClass('default');
+    }
+  });
+  $("#ccUser input").blur( function() {
+    var value = $(this).val();
+    if ( value == "" ) {
+      $(this).val( $(this).attr("title") );
+      $(this).addClass('default');
+    }
+  });
+  $("#ccUser input").blur();
+  $("#ccUser form").on("submit", function(event) {
+    event.preventDefault();
+
+    var data = '{';
+    var sep = '';
+    $(this).find('input').each(function() {
+      var key = $(this).attr('name');
+      var val = $(this).val() == $(this).attr('title') ? '' : $(this).val();
+      data += sep + '"' + key + '":"' + val + '"';
+      sep = ",";
+    });
+    data += '}';
+
+    var cbUrl = "https://coinbase.com/inline_payments/1726ef5f3a82dd1c03a9b7e9223c2fae?c=";
+    cbUrl += encodeURIComponent(data);
+    
+    $("#cbPayment iframe").attr("src", cbUrl);
+    $("#ccUser").hide();
+    $("#cbPayment").show();
+  });
+</script>
+</div>
+<div id="cbPayment">
+<iframe src="" style="background-image: url('http://www.picgifs.com/graphics/c/cycling/graphics-cycling-821835.gif'); background-repeat: no-repeat; background-position: 50% 50%; width: 500px; height: 160px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.25); overflow: hidden;" scrolling="no" allowtransparency="true" frameborder="0"></iframe>
+</div>
+<!--p>
 <a class="coinbase-button" data-code="7e17b85f3478619fe671ac319854be27" data-button-style="custom_large" data-custom="9876543210" href="https://coinbase.com/checkouts/7e17b85f3478619fe671ac319854be27" data-button-text="Pay With Bitcoin">Pay With Bitcoin</a><script src="https://coinbase.com/assets/button.js" type="text/javascript"></script>
+</p-->
+            </div>
+            <div class="modal-footer">
+              <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+          </div>
+          <script>
+            $("#cbPayment").hide();
+            $("#myModal").on("hidden", function() {
+              $("#cbPayment").hide();
+              $("#ccUser").show();
+              $("#cbPayment iframe").attr("src", "");
+            });
+          </script>
+          <!-- end Modal -->
 	  </div>
           </div>
           <div class="row-fluid">
@@ -83,7 +158,7 @@
       <!-- http://placehold.it -->
       <div class="row-fluid section1">
         <div class="span5 offset1 asset">
-          <img class="img-polaroid" src="https://sites.google.com/a/cadencecoach.me/static/home/city_480x300.jpg">
+          <img class="img-polaroid" src="https://sites.google.com/a/cadencecoach.me/static/home/mountain_480x300.jpg">
         </div>
         <div class="span5 copy">
           <p>
@@ -120,7 +195,7 @@ If you enjoy cycling for recreation, transportation, fitness, or competition, yo
           </p>
         </div>
         <div class="span5 asset">
-          <img class="img-polaroid" src="https://sites.google.com/a/cadencecoach.me/static/home/mountain_480x300.jpg">
+          <img class="img-polaroid" src="https://sites.google.com/a/cadencecoach.me/static/home/city_480x300.jpg">
         </div>
       </div>
 

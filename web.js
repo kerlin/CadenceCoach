@@ -16,7 +16,26 @@ app.set('port', process.env.PORT || 8080);
 app.get('/', function(request, response) {
   //var data = fs.readFileSync('index.html').toString();
   //response.send(data);
-  response.render("index", {req: request});
+  global.db.Order.findAll().success(function(orders) {
+    var numBackers = 0;
+    var totalBtc = 0; 
+    var goalBtc = 50.000;
+    orders.forEach(function(order) {
+      ++numBackers;
+      totalBtc += order.amount;
+    });
+    // Uses views/index.ejs
+    var pctFunded = parseInt(100 * totalBtc/goalBtc);
+    var pctRemain = 100 - pctFunded;
+    totalBtc = totalBtc.toFixed(3);
+    var nowDate = new Date()
+    var endDate = new Date("Oct, 6, 2013")
+    var daysLeft = parseInt((endDate-nowDate)/(24*3600*1000));
+    response.render("index", {req: request, backers: numBackers, amount: totalBtc, pctFunded: pctFunded, pctRemain: pctRemain, daysLeft: daysLeft});
+  }).error(function(err) {
+    console.log(err);
+    response.send("error retrieving orders");
+  });
 });
 
 app.get('/about', function(request, response) {
@@ -44,12 +63,15 @@ app.get('/orders', function(request, response) {
 
 // Hit this URL while on example.com/orders to refresh
 app.get('/refresh_orders', function(request, response) {
+  console.log('getting orders from coinbase');
   https.get("https://coinbase.com/api/v1/orders?api_key=" + process.env.COINBASE_API_KEY, function(res) {
     var body = '';
     res.on('data', function(chunk) {body += chunk;});
     res.on('end', function() {
       try {
         var orders_json = JSON.parse(body);
+        //console.log('response body');
+        console.log(body);
         if (orders_json.error) {
           response.send(orders_json.error);
           return;
