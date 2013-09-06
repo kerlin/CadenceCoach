@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
     <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fsocial-buttons.css">    
     <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
     <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script>
@@ -37,79 +37,84 @@
        }
       }
 
-      /* All form factors */
+       /* All form factors */
+ 
+       /* Main body and headings */
+       body{
+         font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+       }
+       .heading, .subheading {
+         font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+         text-align: center;
+       }
+       p.lead {
+         padding-top: 1.5%;
+         font-size: 24px;
+         line-height: 30px;
+       }
+       p {
+         font-size: 18px;
+         line-height: 24px;
+       }
+ 
+       /* Video pitch and Action */
+       .pitch {
+         padding: 2.5% 0%;
+       }
+       .order {
+         padding: 2% 0%;
+       }
+       .actions {
+         background-color: #343434;
+         padding: 3% 0%;
+       }
+       .video, .thermometer, .order, .social, .statistics {
+         text-align: center;
+       }
+       .statistics h3, .statistics p {
+         color: white;
+       }
+ 
+       /* Marketing Copy and Footer */
+       .copy {
+         padding-top: 2.5%;
+         padding-bottom: 2.5%;
+         text-align: justify;
+       }
+       .asset {
+         padding: 2.5% 0%;
+       }
+       .footer {
+         color: #cccccc;
+         text-align: center;
+       }
+       .footer p {
+         font-size: 11px;
+       }
+       .footer a {
+         color: #ccccff;
+       }
 
-      /* Main body and headings */
-      body{
-        font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-      }
-      .heading, .subheading {
-        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
-        text-align: center;
-      }
-      p.lead {
-        padding-top: 1.5%;
-        font-size: 24px;
-        line-height: 30px;
-      }
-      p {
-        font-size: 18px;
-        line-height: 24px;
-      }
-
-      /* Video pitch and Action */
-      .pitch {
-        padding: 2.5% 0%;
-      }
-      .order {
-        padding: 2% 0%;
-      }
-      .actions {
-        background-color: #343434;
-        padding: 3% 0%;
-      }
-      .video, .thermometer, .order, .social, .statistics {
-        text-align: center;
-      }
-      .statistics h3, .statistics p {
-        color: white;
-      }
-
-      /* Marketing Copy and Footer */
-      .copy {
-        padding-top: 2.5%;
-        padding-bottom: 2.5%;
-        text-align: justify;
-      }
-      .asset {
-        padding: 2.5% 0%;
-      }
-      .footer {
-        color: #cccccc;
-        text-align: center;
-      }
-      .footer p {
-        font-size: 11px;
-      }
-      .footer a {
-        color: #ccccff;
-      }
-
-     /* http://support.addthis.com/customer/portal/questions/1136093-share-buttons-in-center-position */      
-     div.addthis_toolbox {
-      width: 174px;
-      margin: 0 auto;
-     }
-
-     #ccUser input {
+       /* http://support.addthis.com/customer/portal/questions/1136093-share-buttons-in-center-position */      
+       div.addthis_toolbox {
+        width: 174px;
+        margin: 0 auto;
+       }
+  
+       #ccUser input {
          width: 30%;
          margin: 1%
-     }
-     #ccUser input.default {
-        color: lightGray;
-        font-style: italic
-     }
+       }
+       #ccUser input.default {
+         color: lightGray;
+         font-style: italic
+       }
+  
+       .nowrap {
+          white-space: nowrap;
+       }
     </style>
+
 <script type="text/javascript">
 
   var _gaq = _gaq || [];

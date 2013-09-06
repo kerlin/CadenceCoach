@@ -20,9 +20,9 @@
         <!-- We define a new 'actions' div to contain statistics, order, and share buttons.-->
         <div class="span5 actions">
           <div class="row-fluid">
-          <div class="span8 offset2">
+          <div class="span10 offset1">
             <div class="row-fluid statistics">
-              <div class="span4">
+              <div class="span3">
                 <!-- linediv-l and linediv-r give dividing lines that look
                 different in horizontal and vertical layouts, illustrating
                 media queries. -->
@@ -30,12 +30,13 @@
                 <h3><%= backers %></h3> <p>backers</p>
                 </div>
               </div>
-              <div class="span4">
+              <div class="span6">
                 <div class="linediv-c">
-                  <h3><%= amount %></h3> <p>of 50.000 BTC</p>
+                  <span class="nowrap"><h3><i class="icon-btc"></i><%= amount %></h3></span>
+                  <p>of <span class="nowrap"><i class="icon-btc"></i>50.000</span></p>
                 </div>
               </div>
-              <div class="span4">
+              <div class="span3">
                 <div class="linediv-r">
                 <h3><%= daysLeft %></h3> <p>days left</p>
                 </div>
@@ -53,9 +54,9 @@
           </div>
           </div>
           <div class="row-fluid">
-          <div class="span6 offset3 order">
+          <div class="span8 offset2 order">
           <!-- Button to trigger modal -->
-          <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">Become a Backer</a>
+          <a href="#myModal" role="button" class="btn btn-primary btn-large" data-toggle="modal">Become a Backer</a>
            
           <!-- Modal -->
           <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -104,7 +105,10 @@
     // 0.0499
     //Ovar cbUrl = "https://coinbase.com/inline_payments/1726ef5f3a82dd1c03a9b7e9223c2fae?c=";
     // 0.003
-    var cbUrl = "https://coinbase.com/inline_payments/9008bca0b601abb5945e40876dcc02dc?c=";
+    //var cbUrl = "https://coinbase.com/inline_payments/9008bca0b601abb5945e40876dcc02dc?c=";
+    // 0.03 variable
+    var cbUrl = "https://coinbase.com/inline_payments/1ed1b7cd1f184a9af78257fc9b9ea6d6?c=";
+
     cbUrl += encodeURIComponent(data);
     
     $("#cbPayment iframe").attr("src", cbUrl);
@@ -147,7 +151,7 @@
 	     <script type="text/javascript">var addthis_config = 
 	      {"data_track_addressbar":true};</script>
 	     <script type="text/javascript" 
- 		     src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51e5f5d9549fdf9b"></script>
+ 		     src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-520486a909996c80"></script>
             <!-- AddThis Button END -->
           </div>
           </div>
