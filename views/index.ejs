@@ -69,18 +69,20 @@
 <p>Enter your name and email address, or just press "Continue"</p>
 <form>
 <div class="form-horizontal">
-<input type="text" name="userName" title="Your Name"> </input><input type="text" name="userEmail" title="Your E-mail"></input>
+<input maxlength="64" type="text" name="userName" title="Your Name"> </input><input maxlength="64" type="text" name="userEmail" title="Your E-mail"></input>
 <button class="btn btn-primary">Continue</button>
 </div>
 </form>
 <script>
   $("#ccUser input").focus( function() {
     var value = $(this).val();
+    $(this).removeClass('error');
     if ( value === $(this).attr("title") ) {
       $(this).val("");
       $(this).removeClass('default');
     }
   });
+
   $("#ccUser input").blur( function() {
     var value = $(this).val();
     if ( value == "" ) {
@@ -88,19 +90,43 @@
       $(this).addClass('default');
     }
   });
+
   $("#ccUser input").blur();
-  $("#ccUser form").on("submit", function(event) {
+
+  $("#ccUser form").submit( function(event) {
     event.preventDefault();
+
+    var submitOk = true;
 
     var data = '{';
     var sep = '';
-    $(this).find('input').each(function() {
+    var cmk = $(this).find('input').each(function() {
       var key = $(this).attr('name');
-      var val = $(this).val() == $(this).attr('title') ? '' : $(this).val();
+      var val = $.trim($(this).val());
+      // since we're not using JSON.stringify() but we want stringified JSON
+      val = val.replace(/[\\/"]/g, "\\$&");
+      if ( val === $(this).attr('title') ) val = "";
+      // Arbitrary length limit for name and email
+      if ( val.length > 64 ) {
+        $(this).addClass('error');
+        submitOk = false;
+        return;
+      }
+      if ( key === "userEmail" && val !== "" ) {
+        // A simple sanity check that allows unicode chars, etc.
+        var emailLike = /^[^@\s]+\@([^@\s]+\.)+[^@\s.]+$/;
+        if ( !emailLike.test(val) ) {
+          $(this).addClass('error');
+          submitOk = false;
+          return;
+        }
+      }
       data += sep + '"' + key + '":"' + val + '"';
       sep = ",";
     });
     data += '}';
+
+    if (!submitOk) return false;
 
     // 0.0499
     //Ovar cbUrl = "https://coinbase.com/inline_payments/1726ef5f3a82dd1c03a9b7e9223c2fae?c=";
